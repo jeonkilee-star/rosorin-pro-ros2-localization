@@ -74,8 +74,10 @@
   table.diff td.new{color:var(--new-ink); background:var(--new-bg);}
   table.diff td.old::before{content:"− "; opacity:.65;}
   table.diff td.new::before{content:"+ "; opacity:.65;}
-  table.diff td.meaning{font-family:'IBM Plex Sans KR','Noto Sans KR',sans-serif; color:var(--muted); font-size:.85rem;}
+  table.diff td.meaning, table.diff .meaning{font-family:'IBM Plex Sans KR','Noto Sans KR',sans-serif; color:var(--muted); font-size:.85rem;}
+  table.diff .meaning{display:inline-block; margin-top:3px;}
   table.diff .phon{opacity:.72; font-size:.93em;}
+  table.diff td.src{font-family:'IBM Plex Mono',monospace; font-size:.78rem; color:var(--muted); line-height:1.6;}
   .scroll-x{overflow-x:auto; border-radius:10px;}
 
   table.gap{width:100%; border-collapse:collapse; font-size:.86rem; margin-top:10px;}
@@ -141,40 +143,40 @@
     <h2><span class="num">03</span>⚠ 음성 명령어(ASR) — 별도 주의 필요</h2>
     <p class="lede body-text">오프라인 음성인식 하드웨어(WonderEcho Pro)는 원래 중국어 발화를 인식하도록 만들어진 모듈입니다. 명령어 텍스트를 의미상 한국어로 번역하긴 했지만, <b>실제 하드웨어가 그 한국어 발음을 인식하는지는 검증되지 않았습니다</b> — 로봇으로 직접 말해보기 전까지는 확정할 수 없습니다.</p>
 
-    <p class="body-text" style="margin-top:20px;"><b>마스터 명령어 목록</b> (<code>wonder_echo_pro_node.py</code> · <code>zh_cmd</code>) 31개 중 28개는 이번 세션의 에이전트 보고서에 실제로 인용된 원문을 근거로 복원 가능합니다. 하드웨어가 중국어 발화용이라는 점을 고려해, <b>중국어 원문 + 한글 발음 표기를 기본으로 하고 의미 번역은 참고용으로 뒤에</b> 배치했습니다 — 학생이 이 발음을 그대로 따라 말해보는 방식을 염두에 둔 구성입니다:</p>
+    <p class="body-text" style="margin-top:20px;"><b>마스터 명령어 목록</b> (<code>wonder_echo_pro_node.py</code> · <code>zh_cmd</code>) 31개 중 28개는 이번 세션의 에이전트 보고서에 실제로 인용된 원문을 근거로 복원 가능합니다. 하드웨어가 중국어 발화용이라는 점을 고려해, <b>중국어 원문 + 한글 발음 표기를 기본으로 하고 의미 번역은 참고용으로 뒤에</b> 배치했습니다. <b>소스 파일</b>은 실제 <code>words == '…'</code> 비교 로직이 있는 개별 기능 파일이며, 31개 전부 <code>wonder_echo_pro_node.py</code>의 마스터 목록에도 공통으로 등록되어 있습니다:</p>
 
     <div class="scroll-x">
     <table class="diff">
-      <thead><tr><th style="width:2.4em">#</th><th>중국어 원문 (한글 발음)</th><th>의미</th></tr></thead>
+      <thead><tr><th style="width:2.4em">#</th><th>중국어 원문 (한글 발음)</th><th>의미</th><th>소스 파일</th></tr></thead>
       <tbody>
-        <tr><td class="idx">1</td><td class="old">拔萝卜<span class="phon">(바 뤄보)</span></td><td class="meaning">무 뽑기</td></tr>
-        <tr><td class="idx">2</td><td class="old">拿给我<span class="phon">(나 게이 워)</span></td><td class="meaning">나에게 줘</td></tr>
-        <tr><td class="idx">3</td><td class="old">开启颜色识别<span class="phon">(카이치 옌써 스비에)</span></td><td class="meaning">색상 인식 켜기</td></tr>
-        <tr><td class="idx">4</td><td class="old">关闭颜色识别<span class="phon">(관비 옌써 스비에)</span></td><td class="meaning">색상 인식 끄기</td></tr>
-        <tr><td class="idx">5</td><td class="old">开启颜色分拣<span class="phon">(카이치 옌써 펀졘)</span></td><td class="meaning">색상 분류 켜기</td></tr>
-        <tr><td class="idx">6</td><td class="old">关闭颜色分拣<span class="phon">(관비 옌써 펀졘)</span></td><td class="meaning">색상 분류 끄기</td></tr>
-        <tr><td class="idx">7</td><td class="old">追踪红色<span class="phon">(주이쭝 훙써)</span></td><td class="meaning">빨간색 추적</td></tr>
-        <tr><td class="idx">8</td><td class="old">追踪绿色<span class="phon">(주이쭝 뤼써)</span></td><td class="meaning">초록색 추적</td></tr>
-        <tr><td class="idx">9</td><td class="old">追踪蓝色<span class="phon">(주이쭝 란써)</span></td><td class="meaning">파란색 추적</td></tr>
-        <tr><td class="idx">10</td><td class="old">停止追踪<span class="phon">(팅즈 주이쭝)</span></td><td class="meaning">추적 정지</td></tr>
-        <tr><td class="idx">11</td><td class="old">夹取红色<span class="phon">(쟈취 훙써)</span></td><td class="meaning">빨간색 집기</td></tr>
-        <tr><td class="idx">13</td><td class="old">夹取蓝色<span class="phon">(쟈취 란써)</span></td><td class="meaning">파란색 집기</td></tr>
-        <tr><td class="idx">14</td><td class="old">夹取球体<span class="phon">(쟈취 치우티)</span></td><td class="meaning">구체 집기</td></tr>
-        <tr><td class="idx">15</td><td class="old">夹取圆柱体<span class="phon">(쟈취 위엔주티)</span></td><td class="meaning">원기둥 집기</td></tr>
-        <tr><td class="idx">16</td><td class="old">夹取立方体<span class="phon">(쟈취 리팡티)</span></td><td class="meaning">정육면체 집기</td></tr>
-        <tr><td class="idx">17</td><td class="old">关闭夹取<span class="phon">(관비 쟈취)</span></td><td class="meaning">집기 끄기</td></tr>
-        <tr><td class="idx">18</td><td class="old">开启垃圾分类<span class="phon">(카이치 라지 펀레이)</span></td><td class="meaning">쓰레기 분류 켜기</td></tr>
-        <tr><td class="idx">19</td><td class="old">关闭垃圾分类<span class="phon">(관비 라지 펀레이)</span></td><td class="meaning">쓰레기 분류 끄기</td></tr>
-        <tr><td class="idx">20</td><td class="old">前进<span class="phon">(첸진)</span></td><td class="meaning">전진</td></tr>
-        <tr><td class="idx">21</td><td class="old">后退<span class="phon">(허우퉤이)</span></td><td class="meaning">후진</td></tr>
-        <tr><td class="idx">22</td><td class="old">左转<span class="phon">(줘좐)</span></td><td class="meaning">좌회전</td></tr>
-        <tr><td class="idx">23</td><td class="old">右转<span class="phon">(유좐)</span></td><td class="meaning">우회전</td></tr>
-        <tr><td class="idx">26</td><td class="old">过来<span class="phon">(궈라이)</span></td><td class="meaning">이리와</td></tr>
-        <tr><td class="idx">27</td><td class="old">去'A'点<span class="phon">(취 에이 뎬)</span></td><td class="meaning">'A' 지점으로 가</td></tr>
-        <tr><td class="idx">28</td><td class="old">去'B'点<span class="phon">(취 비 뎬)</span></td><td class="meaning">'B' 지점으로 가</td></tr>
-        <tr><td class="idx">29</td><td class="old">去'C'点<span class="phon">(취 씨 뎬)</span></td><td class="meaning">'C' 지점으로 가</td></tr>
-        <tr><td class="idx">30</td><td class="old">回原点<span class="phon">(후이 위엔뎬)</span></td><td class="meaning">원점으로 복귀</td></tr>
-        <tr><td class="idx">31</td><td class="old">导航搬运<span class="phon">(다오항 반윈)</span></td><td class="meaning">내비게이션 운반</td></tr>
+        <tr><td class="idx">1</td><td class="old">拔萝卜<span class="phon">(바 뤄보)</span></td><td class="meaning">무 뽑기</td><td class="src">voice_control_arm.py</td></tr>
+        <tr><td class="idx">2</td><td class="old">拿给我<span class="phon">(나 게이 워)</span></td><td class="meaning">나에게 줘</td><td class="src">voice_control_arm.py</td></tr>
+        <tr><td class="idx">3</td><td class="old">开启颜色识别<span class="phon">(카이치 옌써 스비에)</span></td><td class="meaning">색상 인식 켜기</td><td class="src">voice_control_color_detect.py</td></tr>
+        <tr><td class="idx">4</td><td class="old">关闭颜色识别<span class="phon">(관비 옌써 스비에)</span></td><td class="meaning">색상 인식 끄기</td><td class="src">voice_control_color_detect.py</td></tr>
+        <tr><td class="idx">5</td><td class="old">开启颜色分拣<span class="phon">(카이치 옌써 펀졘)</span></td><td class="meaning">색상 분류 켜기</td><td class="src">voice_control_color_sorting.py</td></tr>
+        <tr><td class="idx">6</td><td class="old">关闭颜色分拣<span class="phon">(관비 옌써 펀졘)</span></td><td class="meaning">색상 분류 끄기</td><td class="src">voice_control_color_sorting.py</td></tr>
+        <tr><td class="idx">7</td><td class="old">追踪红色<span class="phon">(주이쭝 훙써)</span></td><td class="meaning">빨간색 추적</td><td class="src">voice_control_color_track.py<br>vc_track_and_grab.py</td></tr>
+        <tr><td class="idx">8</td><td class="old">追踪绿色<span class="phon">(주이쭝 뤼써)</span></td><td class="meaning">초록색 추적</td><td class="src">voice_control_color_track.py<br>vc_track_and_grab.py</td></tr>
+        <tr><td class="idx">9</td><td class="old">追踪蓝色<span class="phon">(주이쭝 란써)</span></td><td class="meaning">파란색 추적</td><td class="src">voice_control_color_track.py<br>vc_track_and_grab.py</td></tr>
+        <tr><td class="idx">10</td><td class="old">停止追踪<span class="phon">(팅즈 주이쭝)</span></td><td class="meaning">추적 정지</td><td class="src">voice_control_color_track.py<br>vc_track_and_grab.py</td></tr>
+        <tr><td class="idx">11</td><td class="old">夹取红色<span class="phon">(쟈취 훙써)</span></td><td class="meaning">빨간색 집기</td><td class="src">vc_object_classification.py</td></tr>
+        <tr><td class="idx">13</td><td class="old">夹取蓝色<span class="phon">(쟈취 란써)</span></td><td class="meaning">파란색 집기</td><td class="src">vc_object_classification.py</td></tr>
+        <tr><td class="idx">14</td><td class="old">夹取球体<span class="phon">(쟈취 치우티)</span></td><td class="meaning">구체 집기</td><td class="src">vc_object_classification.py</td></tr>
+        <tr><td class="idx">15</td><td class="old">夹取圆柱体<span class="phon">(쟈취 위엔주티)</span></td><td class="meaning">원기둥 집기</td><td class="src">vc_object_classification.py</td></tr>
+        <tr><td class="idx">16</td><td class="old">夹取立方体<span class="phon">(쟈취 리팡티)</span></td><td class="meaning">정육면체 집기</td><td class="src">vc_object_classification.py</td></tr>
+        <tr><td class="idx">17</td><td class="old">关闭夹取<span class="phon">(관비 쟈취)</span></td><td class="meaning">집기 끄기</td><td class="src">vc_object_classification.py</td></tr>
+        <tr><td class="idx">18</td><td class="old">开启垃圾分类<span class="phon">(카이치 라지 펀레이)</span></td><td class="meaning">쓰레기 분류 켜기</td><td class="src">voice_control_garbage_classification.py</td></tr>
+        <tr><td class="idx">19</td><td class="old">关闭垃圾分类<span class="phon">(관비 라지 펀레이)</span></td><td class="meaning">쓰레기 분류 끄기</td><td class="src">voice_control_garbage_classification.py</td></tr>
+        <tr><td class="idx">20</td><td class="old">前进<span class="phon">(첸진)</span></td><td class="meaning">전진</td><td class="src">voice_control_move.py</td></tr>
+        <tr><td class="idx">21</td><td class="old">后退<span class="phon">(허우퉤이)</span></td><td class="meaning">후진</td><td class="src">voice_control_move.py</td></tr>
+        <tr><td class="idx">22</td><td class="old">左转<span class="phon">(줘좐)</span></td><td class="meaning">좌회전</td><td class="src">voice_control_move.py</td></tr>
+        <tr><td class="idx">23</td><td class="old">右转<span class="phon">(유좐)</span></td><td class="meaning">우회전</td><td class="src">voice_control_move.py</td></tr>
+        <tr><td class="idx">26</td><td class="old">过来<span class="phon">(궈라이)</span></td><td class="meaning">이리와</td><td class="src">voice_control_move.py</td></tr>
+        <tr><td class="idx">27</td><td class="old">去'A'点<span class="phon">(취 에이 뎬)</span></td><td class="meaning">'A' 지점으로 가</td><td class="src">voice_control_navigation.py</td></tr>
+        <tr><td class="idx">28</td><td class="old">去'B'点<span class="phon">(취 비 뎬)</span></td><td class="meaning">'B' 지점으로 가</td><td class="src">voice_control_navigation.py</td></tr>
+        <tr><td class="idx">29</td><td class="old">去'C'点<span class="phon">(취 씨 뎬)</span></td><td class="meaning">'C' 지점으로 가</td><td class="src">voice_control_navigation.py</td></tr>
+        <tr><td class="idx">30</td><td class="old">回原点<span class="phon">(후이 위엔뎬)</span></td><td class="meaning">원점으로 복귀</td><td class="src">voice_control_navigation.py</td></tr>
+        <tr><td class="idx">31</td><td class="old">导航搬运<span class="phon">(다오항 반윈)</span></td><td class="meaning">내비게이션 운반</td><td class="src">voice_control_navigation_transport.py</td></tr>
       </tbody>
     </table>
     </div>
@@ -182,26 +184,52 @@
 
     <div class="callout warn">
       <b>미확인 3건 — 원문을 지어내지 않고 비워둠</b><br>
-      아래 3개는 어떤 에이전트 보고서에도 중국어 원문이 인용된 적이 없어, 추측으로 채우지 않았습니다. 원본 zip에서 해당 줄을 확인해주시면 마무리하겠습니다.
-      <table class="gap">
-        <tr><td class="old">#12 초록색 집기</td><td class="arrow">←</td><td class="new">원문 불명</td></tr>
-        <tr><td class="old">#24 정지</td><td class="arrow">←</td><td class="new">원문 불명</td></tr>
-        <tr><td class="old">#25 드리프트</td><td class="arrow">←</td><td class="new">원문 불명</td></tr>
+      아래 3개는 어떤 에이전트 보고서에도 중국어 원문이 인용된 적이 없어, 추측으로 채우지 않았습니다. 소스 파일은 같은 기능 그룹의 이웃 명령어들로 미루어 추정한 것으로, 확정 아님. 원본 zip에서 해당 줄을 확인해주시면 마무리하겠습니다.
+      <table class="gap" style="margin-top:10px;">
+        <thead><tr><th style="text-align:left; font-size:.72rem; color:var(--muted); font-weight:600; padding-bottom:4px;">한국어(현재)</th><th style="text-align:left; font-size:.72rem; color:var(--muted); font-weight:600; padding-bottom:4px;">중국어 원문(발음)</th><th style="text-align:left; font-size:.72rem; color:var(--muted); font-weight:600; padding-bottom:4px;">소스 파일(추정)</th></tr></thead>
+        <tr><td class="old">#12 초록색 집기</td><td class="new">원문 불명</td><td class="src" style="font-family:'IBM Plex Mono',monospace; font-size:.8rem;">vc_object_classification.py <span style="opacity:.6;">(추정)</span></td></tr>
+        <tr><td class="old">#24 정지</td><td class="new">원문 불명</td><td class="src" style="font-family:'IBM Plex Mono',monospace; font-size:.8rem;">voice_control_move.py <span style="opacity:.6;">(추정)</span></td></tr>
+        <tr><td class="old">#25 드리프트</td><td class="new">원문 불명</td><td class="src" style="font-family:'IBM Plex Mono',monospace; font-size:.8rem;">voice_control_move.py <span style="opacity:.6;">(추정)</span></td></tr>
       </table>
     </div>
 
-    <p class="body-text" style="margin-top:18px;"><b>마스터 목록 ↔ 개별 기능 파일 표현 불일치</b> — 같은 동작을 가리키는데 마스터 목록(<code>zh_cmd</code>)과 실제 비교 로직이 있는 개별 파일의 한국어 표현이 서로 다르게 번역된 사례가 있습니다. 원래 중국어 자체가 두 곳에서 달랐는지, 번역 과정에서 갈렸는지는 확인되지 않았습니다:</p>
+    <p class="body-text" style="margin-top:18px;"><b>마스터 목록 ↔ 개별 기능 파일 표현 불일치</b> — 같은 동작을 가리키는데 마스터 목록(<code>zh_cmd</code>)과 실제 비교 로직이 있는 개별 파일의 한국어 표현이 서로 다르게 번역된 사례가 있습니다. 중국어 원문을 나란히 놓아보면, 4건 중 3건은 <b>원문이 동일한데도 번역 과정에서 표현이 갈렸고</b>, 1건은 <b>원문 자체가 애초에 달랐습니다</b>:</p>
     <div class="scroll-x">
     <table class="diff">
-      <thead><tr><th>동작</th><th>마스터 목록(zh_cmd)</th><th>개별 파일 비교문</th></tr></thead>
+      <thead><tr><th>동작</th><th>마스터 목록 (zh_cmd)</th><th>개별 파일 비교문</th><th>소스 파일</th><th>원인</th></tr></thead>
       <tbody>
-        <tr><td class="mono" style="font-family:'IBM Plex Sans KR';">무 뽑기</td><td class="new">무 뽑기</td><td class="new">당근 뽑아줘 <span style="opacity:.6">(voice_control_arm.py)</span></td></tr>
-        <tr><td class="mono" style="font-family:'IBM Plex Sans KR';">정육면체 집기</td><td class="new">정육면체 집기</td><td class="new">직육면체 집기 <span style="opacity:.6">(vc_object_classification.py)</span></td></tr>
-        <tr><td class="mono" style="font-family:'IBM Plex Sans KR';">쓰레기 분류 켜기/끄기</td><td class="new">켜기 / 끄기</td><td class="new">시작 / 중지 <span style="opacity:.6">(voice_control_garbage_classification.py)</span></td></tr>
-        <tr><td class="mono" style="font-family:'IBM Plex Sans KR';">원점으로 복귀</td><td class="new">원점으로 복귀</td><td class="new">원점으로 돌아가 <span style="opacity:.6">(voice_control_navigation.py)</span></td></tr>
+        <tr>
+          <td class="mono" style="font-family:'IBM Plex Sans KR';">무 뽑기 계열</td>
+          <td class="old">拔萝卜<span class="phon">(바 뤄보)</span><br><span class="meaning">→ 무 뽑기</span></td>
+          <td class="old">拔个萝卜<span class="phon">(바거 뤄보)</span><br><span class="meaning">→ 당근 뽑아줘</span></td>
+          <td class="src" style="font-family:'IBM Plex Mono',monospace; font-size:.8rem;">voice_control_arm.py</td>
+          <td style="font-family:'IBM Plex Sans KR'; font-size:.82rem; color:var(--accent-ink);">원문 자체가 다름(个 유무)<br>+ 萝卜(무)를 당근으로 오역</td>
+        </tr>
+        <tr>
+          <td class="mono" style="font-family:'IBM Plex Sans KR';">정육면체 집기</td>
+          <td class="old">夹取立方体<span class="phon">(쟈취 리팡티)</span><br><span class="meaning">→ 정육면체 집기</span></td>
+          <td class="old">夹取立方体<span class="phon">(쟈취 리팡티)</span><br><span class="meaning">→ 직육면체 집기</span></td>
+          <td class="src" style="font-family:'IBM Plex Mono',monospace; font-size:.8rem;">vc_object_classification.py</td>
+          <td style="font-family:'IBM Plex Sans KR'; font-size:.82rem; color:var(--muted);">원문 동일 — 立方体(정육면체)를<br>직육면체로 오역</td>
+        </tr>
+        <tr>
+          <td class="mono" style="font-family:'IBM Plex Sans KR';">쓰레기 분류 켜기/끄기</td>
+          <td class="old">开启/关闭垃圾分类<span class="phon">(카이치/관비 라지 펀레이)</span><br><span class="meaning">→ 켜기 / 끄기</span></td>
+          <td class="old">开启/关闭垃圾分类<span class="phon">(카이치/관비 라지 펀레이)</span><br><span class="meaning">→ 시작 / 중지</span></td>
+          <td class="src" style="font-family:'IBM Plex Mono',monospace; font-size:.8rem;">voice_control_garbage_classification.py</td>
+          <td style="font-family:'IBM Plex Sans KR'; font-size:.82rem; color:var(--muted);">원문 동일 — 동의어 선택 차이<br>(켜기/끄기 vs 시작/중지)</td>
+        </tr>
+        <tr>
+          <td class="mono" style="font-family:'IBM Plex Sans KR';">원점으로 복귀</td>
+          <td class="old">回原点<span class="phon">(후이 위엔뎬)</span><br><span class="meaning">→ 원점으로 복귀</span></td>
+          <td class="old">回原点<span class="phon">(후이 위엔뎬)</span><br><span class="meaning">→ 원점으로 돌아가</span></td>
+          <td class="src" style="font-family:'IBM Plex Mono',monospace; font-size:.8rem;">voice_control_navigation.py</td>
+          <td style="font-family:'IBM Plex Sans KR'; font-size:.82rem; color:var(--muted);">원문 동일 — 동의어 선택 차이<br>(복귀 vs 돌아가다)</td>
+        </tr>
       </tbody>
     </table>
     </div>
+    <p style="font-size:.78rem; color:var(--muted); margin-top:8px;">"원문 동일"로 표시된 3건은 실제 코드가 정상 동작하는 데는 문제가 없습니다(같은 중국어를 인식하면 어차피 그 파일의 로직이 실행됨) — 다만 마스터 목록에 표시되는 명령어 이름과 실제 기능 설명이 서로 다른 한국어를 쓰고 있어 학생에게 혼동을 줄 수 있으므로 통일을 권장합니다. "직육면체 집기"·"당근 뽑아줘"는 순수 번역 오류로, 뜻 자체가 달라져 있어 정정이 필요합니다.</p>
   </section>
 
   <hr class="divider">
